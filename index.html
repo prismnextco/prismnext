@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRISMNEXT · 프리즘넥스트 주식회사</title>
+<meta name="description" content="프리즘넥스트는 소프트웨어 개발과 디지털 마케팅으로 브랜드의 가능성을 펼칩니다. 웹·앱 개발, 네이버·쿠팡 광고 대행, 브랜드 마케팅.">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#060608;
+    --bg-elev:#0c0c10;
+    --surface:rgba(255,255,255,0.025);
+    --surface-2:rgba(255,255,255,0.05);
+    --border:rgba(255,255,255,0.10);
+    --border-soft:rgba(255,255,255,0.06);
+    --text:#f4f4f6;
+    --text-dim:#a0a0a8;
+    --text-faint:#62626c;
+    --red:#ff4d4d;
+    --orange:#ff9a2e;
+    --yellow:#ffd23f;
+    --green:#3ddc84;
+    --cyan:#2bd1ff;
+    --blue:#5b7cff;
+    --violet:#b06bff;
+    --maxw:1180px;
+    --mono:"Space Grotesk",sans-serif;
+    --sans:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  ::selection{background:rgba(123,124,255,0.4)}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;width:100%}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:linear-gradient(90deg,var(--violet),var(--cyan))}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    transition:background .3s ease,backdrop-filter .3s ease,border-color .3s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{
+    background:rgba(6,6,8,0.72);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;font-size:18px;letter-spacing:.02em}
+  .brand .dot{
+    width:13px;height:13px;border-radius:3px;
+    background:conic-gradient(from 210deg,var(--red),var(--orange),var(--yellow),var(--green),var(--cyan),var(--blue),var(--violet),var(--red));
+    box-shadow:0 0 14px rgba(123,124,255,.55);
+  }
+  .nav-links{display:flex;align-items:center;gap:34px}
+  .nav-links a{font-size:15px;color:var(--text-dim);transition:color .2s}
+  .nav-links a:hover{color:var(--text)}
+  .nav-cta{
+    font-family:var(--sans);font-size:14px;font-weight:600;
+    padding:9px 18px;border-radius:999px;
+    border:1px solid var(--border);background:var(--surface-2);
+    color:var(--text);transition:.2s;cursor:pointer;
+  }
+  .nav-cta:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
+  .burger{display:none;background:none;border:0;color:var(--text);cursor:pointer;padding:8px}
+  .burger svg{display:block}
+  .mobile-menu{display:none}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+  .hero-svg{
+    position:absolute;inset:0;width:100%;height:100%;
+    z-index:0;
+  }
+  .hero-svg svg{width:100%;height:100%;display:block}
+  .hero-scrim{
+    position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:
+      linear-gradient(90deg,var(--bg) 8%,rgba(6,6,8,.85) 34%,rgba(6,6,8,0) 70%),
+      linear-gradient(180deg,rgba(6,6,8,.6) 0%,rgba(6,6,8,0) 22%,rgba(6,6,8,0) 70%,var(--bg) 100%);
+  }
+  .hero-content{position:relative;z-index:2;width:100%}
+  .hero-inner{max-width:680px}
+  .hero h1{
+    font-weight:800;
+    font-size:clamp(2.6rem,7.2vw,5.1rem);
+    line-height:1.04;
+    letter-spacing:-0.02em;
+    margin:22px 0 0;
+  }
+  .hero h1 .grad{
+    background:linear-gradient(96deg,var(--orange),var(--yellow) 22%,var(--green) 45%,var(--cyan) 66%,var(--blue) 82%,var(--violet));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{
+    margin-top:26px;font-size:clamp(1rem,2.2vw,1.22rem);
+    color:var(--text-dim);max-width:520px;line-height:1.72;
+  }
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px}
+  .btn{
+    font-family:var(--sans);font-size:15px;font-weight:600;
+    padding:14px 26px;border-radius:999px;cursor:pointer;transition:.22s;
+    display:inline-flex;align-items:center;gap:9px;border:1px solid transparent;
+  }
+  .btn-primary{
+    color:#08080a;
+    background:linear-gradient(96deg,#fff,#dfe6ff);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(120,140,255,.3)}
+  .btn-ghost{border-color:var(--border);color:var(--text);background:var(--surface)}
+  .btn-ghost:hover{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.07)}
+  .btn .arr{transition:transform .22s}
+  .btn:hover .arr{transform:translateX(4px)}
+
+  /* ---------- SECTIONS ---------- */
+  section.block{padding:120px 0;position:relative}
+  .sec-head{max-width:720px;margin-bottom:60px}
+  .sec-head h2{
+    font-weight:800;font-size:clamp(1.9rem,4.4vw,3rem);
+    line-height:1.12;letter-spacing:-0.02em;margin-top:18px;
+  }
+  .sec-head p{color:var(--text-dim);margin-top:18px;font-size:1.05rem;max-width:600px}
+
+  /* ABOUT */
+  .about{border-top:1px solid var(--border-soft)}
+  .about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+  .about-body p{color:var(--text-dim);font-size:1.08rem;line-height:1.85}
+  .about-body p+p{margin-top:18px}
+  .about-body strong{color:var(--text);font-weight:600}
+  .values{display:flex;flex-direction:column;gap:14px}
+  .value{
+    display:flex;gap:18px;align-items:flex-start;
+    padding:22px;border:1px solid var(--border-soft);border-radius:16px;
+    background:var(--surface);transition:.25s;
+  }
+  .value:hover{border-color:var(--border);background:var(--surface-2);transform:translateX(4px)}
+  .value .vbar{width:4px;align-self:stretch;border-radius:4px;flex:0 0 auto}
+  .value h3{font-size:1.06rem;font-weight:700}
+  .value p{color:var(--text-dim);font-size:.95rem;margin-top:4px}
+
+  /* SERVICES */
+  .services{border-top:1px solid var(--border-soft);background:linear-gradient(180deg,var(--bg),#08080c)}
+  .svc-split{display:flex;align-items:center;gap:18px;margin-bottom:40px;flex-wrap:wrap}
+  .svc-tag{
+    font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    padding:7px 14px;border-radius:999px;border:1px solid var(--border);color:var(--text-dim);
+  }
+  .svc-split .line{flex:1;height:1px;min-width:30px;background:linear-gradient(90deg,var(--violet),var(--cyan),var(--green),var(--orange))}
+  .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .card{
+    position:relative;overflow:hidden;
+    padding:34px 32px 36px;border:1px solid var(--border-soft);border-radius:20px;
+    background:var(--surface);transition:.3s;
+  }
+  .card::before{
+    content:"";position:absolute;left:0;top:0;height:3px;width:100%;
+    background:var(--accent,var(--cyan));opacity:.85;
+  }
+  .card::after{
+    content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;
+    background:radial-gradient(circle,var(--accent,var(--cyan)),transparent 70%);
+    opacity:.10;transition:opacity .3s;pointer-events:none;
+  }
+  .card:hover{transform:translateY(-5px);border-color:var(--border);background:var(--surface-2)}
+  .card:hover::after{opacity:.2}
+  .card .num{font-family:var(--mono);font-size:13px;color:var(--text-faint);letter-spacing:.1em}
+  .card h3{font-size:1.32rem;font-weight:700;margin:14px 0 10px}
+  .card p{color:var(--text-dim);font-size:.98rem;line-height:1.7}
+  .card .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{font-size:12.5px;color:var(--text-dim);padding:5px 11px;border-radius:999px;border:1px solid var(--border-soft);background:rgba(255,255,255,.02)}
+
+  /* CONTACT */
+  .contact{border-top:1px solid var(--border-soft)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+  .contact-info h2{font-weight:800;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.14;letter-spacing:-0.02em;margin-top:18px}
+  .info-list{margin-top:36px;display:flex;flex-direction:column;gap:2px}
+  .info-row{display:flex;gap:18px;padding:18px 0;border-top:1px solid var(--border-soft)}
+  .info-row:last-child{border-bottom:1px solid var(--border-soft)}
+  .info-row .k{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-faint);width:88px;flex:0 0 auto;padding-top:3px}
+  .info-row .v{font-size:1.02rem}
+  .info-row .v a:hover{color:var(--cyan)}
+
+  .form{padding:34px;border:1px solid var(--border-soft);border-radius:22px;background:var(--surface);display:flex;flex-direction:column;gap:16px}
+  .form .field{display:flex;flex-direction:column;gap:7px}
+  .form label{font-size:13px;color:var(--text-dim);font-weight:500}
+  .form input,.form textarea{
+    font-family:var(--sans);font-size:15px;color:var(--text);
+    background:rgba(0,0,0,.3);border:1px solid var(--border-soft);border-radius:12px;
+    padding:13px 15px;transition:.2s;resize:vertical;width:100%;
+  }
+  .form input:focus,.form textarea:focus{outline:none;border-color:var(--cyan);background:rgba(0,0,0,.5)}
+  .form textarea{min-height:120px}
+  .form .btn-primary{justify-content:center;margin-top:6px}
+  .form-note{font-size:12.5px;color:var(--text-faint);text-align:center}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--border-soft);padding:54px 0 40px;background:#050507}
+  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start}
+  .foot-brand .brand{font-size:20px}
+  .foot-brand p{color:var(--text-faint);font-size:13.5px;margin-top:14px;max-width:300px;line-height:1.7}
+  .foot-meta{display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:var(--text-dim)}
+  .foot-meta .k{color:var(--text-faint);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-right:8px}
+  .foot-bottom{margin-top:44px;padding-top:24px;border-top:1px solid var(--border-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--text-faint)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* spectrum animation */
+  .spectrum{transform-box:view-box;transform-origin:655px 360px;animation:sway 9s ease-in-out infinite alternate}
+  .core{animation:pulse 4.5s ease-in-out infinite alternate}
+  .beam-in{animation:flicker 5s ease-in-out infinite alternate}
+  @keyframes sway{from{transform:rotate(-1.6deg) scale(.99)}to{transform:rotate(1.6deg) scale(1.01)}}
+  @keyframes pulse{from{opacity:.55}to{opacity:1}}
+  @keyframes flicker{from{opacity:.6}to{opacity:1}}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:880px){
+    .nav-links,.nav-cta{display:none}
+    .burger{display:block}
+    .mobile-menu{
+      display:block;position:fixed;top:68px;left:0;right:0;z-index:49;
+      background:rgba(6,6,8,.97);backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border-soft);
+      transform:translateY(-130%);transition:transform .32s ease;
+    }
+    .mobile-menu.open{transform:translateY(0)}
+    .mobile-menu a{display:block;padding:17px 24px;font-size:16px;color:var(--text-dim);border-top:1px solid var(--border-soft)}
+    .mobile-menu a:first-child{border-top:0}
+    .hero{min-height:auto;padding:120px 0 90px}
+    .hero-svg{opacity:.85}
+    .hero-scrim{background:
+      linear-gradient(180deg,rgba(6,6,8,.55) 0%,rgba(6,6,8,.2) 40%,rgba(6,6,8,.8) 78%,var(--bg) 100%);}
+    .about-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+    .svc-grid{grid-template-columns:1fr}
+    section.block{padding:80px 0}
+    .sec-head{margin-bottom:44px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .spectrum,.core,.beam-in{animation:none}
+    .reveal{transition:none;opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="wrap nav">
+    <a class="brand" href="#top"><span class="dot"></span>PRISMNEXT</a>
+    <nav class="nav-links">
+      <a href="#about">회사소개</a>
+      <a href="#services">서비스</a>
+      <a href="#contact">문의</a>
+    </nav>
+    <a href="#contact" class="nav-cta">프로젝트 문의</a>
+    <button class="burger" id="burger" aria-label="메뉴 열기" aria-expanded="false">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">회사소개</a>
+  <a href="#services">서비스</a>
+  <a href="#contact">문의</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-svg" aria-hidden="true">
+    <svg viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="blurS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+        <filter id="blurL" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="22"/></filter>
+        <linearGradient id="gWhite" x1="0" y1="360" x2="600" y2="360" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+          <stop offset="55%" stop-color="#fff" stop-opacity=".5"/>
+          <stop offset="100%" stop-color="#fff" stop-opacity="1"/>
+        </linearGradient>
+        <linearGradient id="gGlass" x1="575" y1="250" x2="735" y2="430" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".14"/>
+          <stop offset="1" stop-color="#8aa0ff" stop-opacity=".05"/>
+        </linearGradient>
+        <radialGradient id="gCore" cx="655" cy="360" r="120" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".95"/>
+          <stop offset="35%" stop-color="#cfe0ff" stop-opacity=".5"/>
+          <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="bRed" x1="655" y1="360" x2="1367" y2="43" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff4d4d" stop-opacity=".95"/><stop offset="1" stop-color="#ff4d4d" stop-opacity="0"/></linearGradient>
+        <linearGradient id="bOrange" x1="655" y1="360" x2="1405" y2="145" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ff9a2e" stop-opacity=".95"/><stop offset="1" stop-color="#ff9a2e" stop-opacity="0"/></linearGradient>
+        <linearGradient id="bYellow" x1="655" y1="360" x2="1427" y2="251" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd23f" stop-opacity=".95"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></linearGradient>
+        <linearGradient id="bGreen" x1="655" y1="360" x2="1435" y2="360" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#3ddc84" stop-opacity=".95"/><stop offset="1" stop-color="#3ddc84" stop-opacity="0"/></linearGradient>
+        <linearGradient id="bCyan" x1="655" y1="360" x2="1427" y2="469" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2bd1ff" stop-opacity=".95"/><stop offset="1" stop-color="#2bd1ff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="bBlue" x1="655" y1="360" x2="1405" y2="575" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5b7cff" stop-opacity=".95"/><stop offset="1" stop-color="#5b7cff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="bViolet" x1="655" y1="360" x2="1367" y2="677" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b06bff" stop-opacity=".95"/><stop offset="1" stop-color="#b06bff" stop-opacity="0"/></linearGradient>
+      </defs>
+
+      <rect width="1440" height="720" fill="#060608"/>
+
+      <!-- incoming white beam -->
+      <g class="beam-in" filter="url(#blurS)">
+        <polygon points="0,355 0,365 612,367 612,353" fill="url(#gWhite)"/>
+      </g>
+
+      <!-- spectrum fan -->
+      <g class="spectrum">
+        <g filter="url(#blurL)" opacity=".7">
+          <polygon points="655,360 1383.8,79.3 1351.2,6.3" fill="url(#bRed)"/>
+          <polygon points="655,360 1415.8,183.5 1393.8,106.6" fill="url(#bOrange)"/>
+          <polygon points="655,360 1432.9,291 1421.8,211.8" fill="url(#bYellow)"/>
+          <polygon points="655,360 1435,400 1435,320" fill="url(#bGreen)"/>
+          <polygon points="655,360 1421.8,508.2 1432.9,429" fill="url(#bCyan)"/>
+          <polygon points="655,360 1393.8,613.5 1415.8,536.6" fill="url(#bBlue)"/>
+          <polygon points="655,360 1351.2,713.7 1383.8,640.7" fill="url(#bViolet)"/>
+        </g>
+        <g filter="url(#blurS)">
+          <polygon points="655,360 1383.8,79.3 1351.2,6.3" fill="url(#bRed)"/>
+          <polygon points="655,360 1415.8,183.5 1393.8,106.6" fill="url(#bOrange)"/>
+          <polygon points="655,360 1432.9,291 1421.8,211.8" fill="url(#bYellow)"/>
+          <polygon points="655,360 1435,400 1435,320" fill="url(#bGreen)"/>
+          <polygon points="655,360 1421.8,508.2 1432.9,429" fill="url(#bCyan)"/>
+          <polygon points="655,360 1393.8,613.5 1415.8,536.6" fill="url(#bBlue)"/>
+          <polygon points="655,360 1351.2,713.7 1383.8,640.7" fill="url(#bViolet)"/>
+        </g>
+      </g>
+
+      <!-- prism -->
+      <g>
+        <polygon points="655,248 575,422 735,422" fill="url(#gGlass)" stroke="rgba(255,255,255,.55)" stroke-width="1.4" stroke-linejoin="round"/>
+        <polygon points="655,248 575,422 735,422" fill="none" stroke="rgba(180,200,255,.35)" stroke-width="3" stroke-linejoin="round" filter="url(#blurS)"/>
+        <line x1="655" y1="248" x2="735" y2="422" stroke="rgba(255,255,255,.7)" stroke-width="1"/>
+      </g>
+
+      <!-- core glow -->
+      <circle class="core" cx="655" cy="360" r="120" fill="url(#gCore)"/>
+    </svg>
+  </div>
+  <div class="hero-scrim"></div>
+
+  <div class="hero-content">
+    <div class="wrap">
+      <div class="hero-inner">
+        <span class="eyebrow">소프트웨어 · 디지털 마케팅</span>
+        <h1>하나의 시작이 만드는<br><span class="grad">무한한 스펙트럼</span></h1>
+        <p class="lead">프리즘넥스트는 하나의 아이디어를 개발과 마케팅이라는 빛으로 나누어, 브랜드가 닿을 수 있는 모든 곳으로 펼쳐냅니다.</p>
+        <div class="hero-actions">
+          <a href="#services" class="btn btn-primary">서비스 보기 <span class="arr">→</span></a>
+          <a href="#contact" class="btn btn-ghost">프로젝트 문의</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="block about" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <span class="eyebrow">About · 회사소개</span>
+        <h2 style="font-weight:800;font-size:clamp(1.9rem,4.4vw,2.9rem);line-height:1.14;letter-spacing:-0.02em;margin:18px 0 26px">빛이 프리즘을 지나<br>스펙트럼이 되듯</h2>
+        <p>하나의 빛이 프리즘을 통과하면 일곱 빛깔로 나뉩니다. 프리즘넥스트는 고객의 <strong>하나의 목표</strong>를 받아, 웹과 앱을 만드는 <strong>기술</strong>과 사람들에게 가닿는 <strong>마케팅</strong>으로 나누어 실현합니다.</p>
+        <p>시작은 하나지만, 그 결과는 무한히 펼쳐집니다. 우리는 만드는 일과 알리는 일을 한 팀에서 책임지기 때문에, 제품과 메시지가 따로 놀지 않습니다.</p>
+      </div>
+      <div class="values reveal">
+        <div class="value"><span class="vbar" style="background:var(--cyan)"></span><div><h3>만든다 — 기술</h3><p>웹과 앱을 직접 설계하고 개발하는 탄탄한 개발력.</p></div></div>
+        <div class="value"><span class="vbar" style="background:var(--orange)"></span><div><h3>알린다 — 마케팅</h3><p>채널에 맞춘 광고와 콘텐츠로 고객에게 정확히 도달합니다.</p></div></div>
+        <div class="value"><span class="vbar" style="background:var(--violet)"></span><div><h3>펼친다 — 성장</h3><p>제품과 메시지를 하나로 묶어 브랜드의 영역을 넓힙니다.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="block services" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Services · 서비스</span>
+      <h2>하나의 빛, 네 갈래의 색</h2>
+      <p>제품을 만드는 소프트웨어부터 시장에 알리는 마케팅까지, 비즈니스에 필요한 흐름을 한곳에서 이어갑니다.</p>
+    </div>
+
+    <div class="svc-split reveal">
+      <span class="svc-tag">Software · 개발</span>
+      <span class="line"></span>
+      <span class="svc-tag">Marketing · 마케팅</span>
+    </div>
+
+    <div class="svc-grid">
+      <div class="card reveal" style="--accent:var(--cyan)">
+        <span class="num">01</span>
+        <h3>웹사이트 개발</h3>
+        <p>기업 홈페이지, 랜딩페이지, 반응형 웹사이트를 기획부터 개발까지 직접 구축합니다.</p>
+        <div class="chips"><span class="chip">기업 홈페이지</span><span class="chip">반응형 웹</span><span class="chip">랜딩페이지</span></div>
+      </div>
+      <div class="card reveal" style="--accent:var(--green)">
+        <span class="num">02</span>
+        <h3>앱 개발</h3>
+        <p>iOS와 안드로이드 모바일 앱을 기획·디자인·개발해 출시까지 함께합니다.</p>
+        <div class="chips"><span class="chip">iOS</span><span class="chip">Android</span><span class="chip">기획·출시</span></div>
+      </div>
+      <div class="card reveal" style="--accent:var(--orange)">
+        <span class="num">03</span>
+        <h3>광고 대행</h3>
+        <p>네이버·쿠팡 등 핵심 채널의 광고를 기획하고 운영해 매출로 이어지는 성과를 만듭니다.</p>
+        <div class="chips"><span class="chip">네이버 광고</span><span class="chip">쿠팡 광고</span><span class="chip">성과 운영</span></div>
+      </div>
+      <div class="card reveal" style="--accent:var(--violet)">
+        <span class="num">04</span>
+        <h3>브랜드 마케팅</h3>
+        <p>브랜드의 메시지를 설계하고 콘텐츠로 풀어내, 고객의 기억에 남는 브랜드를 만듭니다.</p>
+        <div class="chips"><span class="chip">브랜딩</span><span class="chip">콘텐츠</span><span class="chip">메시지 설계</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="block contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <span class="eyebrow">Contact · 문의</span>
+        <h2>프로젝트를 함께<br>펼칠 준비가 되어 있습니다</h2>
+        <div class="info-list">
+          <div class="info-row"><span class="k">대표</span><span class="v">김태웅</span></div>
+          <div class="info-row"><span class="k">주소</span><span class="v">부산광역시 동구 중앙대로196번길 6-7,<br>403호 제이15</span></div>
+          <div class="info-row"><span class="k">이메일</span><span class="v"><a href="mailto:prismnextco@gmail.com">prismnextco@gmail.com</a></span></div>
+        </div>
+      </div>
+
+      <div class="form reveal">
+        <div class="field">
+          <label for="f-name">이름 / 회사명</label>
+          <input id="f-name" type="text" placeholder="홍길동 / (주)회사명" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="f-contact">연락처 (이메일 또는 전화)</label>
+          <input id="f-contact" type="text" placeholder="example@email.com">
+        </div>
+        <div class="field">
+          <label for="f-msg">문의 내용</label>
+          <textarea id="f-msg" placeholder="필요하신 서비스나 프로젝트 내용을 자유롭게 적어주세요."></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" id="sendBtn">메일로 문의 보내기 <span class="arr">→</span></button>
+        <p class="form-note">버튼을 누르면 작성하신 내용이 담긴 메일 작성 창이 열립니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="brand"><span class="dot"></span>PRISMNEXT</span>
+        <p>하나의 시작이 만드는 무한한 스펙트럼. 소프트웨어 개발과 디지털 마케팅으로 브랜드의 가능성을 펼칩니다.</p>
+      </div>
+      <div class="foot-meta">
+        <div><span class="k">상호</span>프리즘넥스트 주식회사</div>
+        <div><span class="k">대표</span>김태웅</div>
+        <div><span class="k">주소</span>부산광역시 동구 중앙대로196번길 6-7, 403호 제이15</div>
+        <div><span class="k">이메일</span><a href="mailto:prismnextco@gmail.com">prismnextco@gmail.com</a></div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 PRISMNEXT Co., Ltd. All rights reserved.</span>
+      <span>프리즘넥스트 주식회사</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 네비게이션 스크롤 상태 (20px 이상 스크롤 시 배경 표시)
+  const header = document.getElementById('header');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // 모바일 메뉴 토글
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open'); burger.setAttribute('aria-expanded', false);
+  }));
+
+  // 스크롤 시 요소 등장 애니메이션
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // 문의 폼 -> 메일 작성 창 열기 (mailto)
+  document.getElementById('sendBtn').addEventListener('click', () => {
+    const name = document.getElementById('f-name').value.trim();
+    const contact = document.getElementById('f-contact').value.trim();
+    const msg = document.getElementById('f-msg').value.trim();
+    const subject = '[홈페이지 문의] ' + (name || '신규 문의');
+    const body =
+      '이름/회사명: ' + name + '\n' +
+      '연락처: ' + contact + '\n\n' +
+      '문의 내용:\n' + msg + '\n';
+    window.location.href = 'mailto:prismnextco@gmail.com?subject=' +
+      encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  });
+</script>
+</body>
+</html>

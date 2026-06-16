@@ -1,0 +1,15 @@
+# macOS 잡파일
+.DS_Store
+.AppleDouble
+
+# 환경 변수 / 비밀 정보 (절대 커밋 금지)
+.env
+.env.*
+*.local
+
+# 에디터 설정
+.vscode/
+.idea/
+
+# 로그
+*.log
